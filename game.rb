@@ -26,20 +26,25 @@ module MathGame
       loop do
 
         puts "Player #{@current_player} : #{@question.number1} + #{@question.number2}? "
-        answer = gets.to_i
-
-          if answer == @question.number1 + @question.number2
-            puts"correct!"
-          else
-            @players[@current_player].add_point
-          end
+        input = gets.chomp.to_i
+        @question.answer = input
 
 
-          if @current_player == 0
-           puts "P0: #{  @players[@current_player].score}/3 vs P1 #{@players[@current_player+1].score}/3 "
-          else
-            puts "P0: #{  @players[@current_player-1].score}/3 vs P1 #{@players[@current_player].score}/3 "
-          end
+        if @question.correct?
+          #puts @question.correct?
+
+          puts "correct!"
+        else
+          @players[@current_player].add_point
+           puts "wrong!!"
+        end
+
+
+        if @current_player == 0
+         puts "P0: #{  @players[@current_player].score}/3 vs P1 #{@players[@current_player+1].score}/3 "
+        else
+          puts "P0: #{  @players[@current_player-1].score}/3 vs P1 #{@players[@current_player].score}/3 "
+        end
 
         @question.random_number
 
@@ -49,7 +54,7 @@ module MathGame
           @current_player = 0
         end
 
-        puts @current_player
+
         break if game_over?
 
       end
